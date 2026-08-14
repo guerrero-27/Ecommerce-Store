@@ -6,5 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    //
+    protected $fillabel = [
+        'user_id', 'session_id',
+    ];
+
+    public function items()
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function total(): float
+    {
+        return $this->items->sum(fn ($item) => $item->quantity * $item->product->price);
+    }
+
+    public function itemCount(): int
+    {
+        return $this->items->sum('quantity');
+    }
 }
