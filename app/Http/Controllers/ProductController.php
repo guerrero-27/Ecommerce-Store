@@ -16,14 +16,14 @@ class ProductController extends Controller
         ->take(6)
         ->get();
 
-        $categories = Category::where('is_active', ture)->tahe(6)->get();
+        $categories = Category::where('is_active', true)->take(6)->get();
 
         return view('storefront.home', compact('featured', 'categories'));
     }
 
     public function index(Request $request)
     {
-        $query = Product::with('category')->where('is_active'.true);
+        $query = Product::with('category')->where('is_active', true);
 
         if ($request->filled('search')){
             $query->where('name', 'like', '%' . $request->search . '%');
@@ -34,7 +34,7 @@ class ProductController extends Controller
         }
 
         if ($request->filled('min_price')){
-            $query->where('price'. '<=', $request->min_price);
+            $query->where('price', '>=', $request->min_price);
         }
         if ($request->filled('max_price')){
             $query->where('price', '<=', $request->max_price);
@@ -64,15 +64,15 @@ class ProductController extends Controller
         ->take(4)
         ->get();
 
-        return view('storefront.products.show', compact('product'. 'related'));
+        return view('storefront.products.show', compact('product', 'related'));
     }
 
     public function byCategory(Category $category)
     {
         $products = $category->products()
-        ->wher('is_active', true)
+        ->where('is_active', true)
         ->paginate(12);
 
-        return view('storefront.products.category', comapct('category', 'products'));
+        return view('storefront.products.category', compact('category', 'products'));
     }
 }

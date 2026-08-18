@@ -2,7 +2,7 @@
     <div class="relative aspect-[4/5] bg-ink/5 border border-hairline overflow-hidden">
         @if($product->images && count($product->images))
             <img src="{{ Storage::url($product->images[0]) }}" alt="{{ $product->name }}"
-                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
         @else
             <div class="w-full h-full flex items-center justify-center font-mono text-xs text-ink/30">No image</div>
         @endif
