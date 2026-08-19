@@ -6,10 +6,39 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\Coupon;
 use illuminate\Support\Str;
 
 class CartController extends Controller
 {
+
+    public function applyCoupon(Request $request)
+    {
+        $request->validate(['code' => 'required|string']);
+
+        $cart = $this->getCurrentCart();
+        $coupon = Coupon::where('code', $request->code)->first();
+
+        if (!$coupon){
+            return back()->withErrors(['code' => 'Coupon not found.']);
+        }
+
+        if (!$coupon->isValid($cart->total())){
+            return back()->withErrors(['code' => 'This coupon is invalid, expired, or the order doesn\'t meet the minimum amount.']);
+        }
+
+        session()->put('coupon_id', $coupon->id);
+
+        return back()->with('success', 'Coupon applied.');
+    }
+
+    public function removeCoupon()
+    {
+        session()->forget('coupon_id');
+
+        return back()->with('success', 'Coupon removed.');
+    }
+
     private function getCurrentCart(): Cart
     {
         if (auth()->check()){
