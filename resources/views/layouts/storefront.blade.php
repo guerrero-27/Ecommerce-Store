@@ -26,11 +26,12 @@
             </nav>
 
             <div class="flex items-center gap-5">
+                
                 <a href="{{ route('cart.index') }}" class="relative font-mono text-sm">
                     Cart
-                    @if(session('cart_count', 0) > 0)
+                    @if($cartCount > 0)
                         <span class="absolute -top-2 -right-3 bg-accent text-paper text-xs w-4 h-4 rounded-full flex items-center justify-center">
-                            {{ session('cart_count') }}
+                            {{ $cartCount }}
                         </span>
                     @endif
                 </a>
