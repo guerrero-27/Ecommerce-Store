@@ -50,7 +50,7 @@
                         <td class="px-4 py-3 text-right space-x-3">
                             <a href="{{ route('admin.products.edit', $product) }}" class="text-accent hover:underline text-xs">Edit</a>
                             <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="inline"
-                                  onsubmit="return confirm('Delete this product?')">
+                                onsubmit="return confirm('Delete this product?')">
                                 @csrf @method('DELETE')
                                 <button class="text-red-600 hover:underline text-xs">Delete</button>
                             </form>
