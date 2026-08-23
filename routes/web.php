@@ -31,6 +31,7 @@ Route::delete('/cart/coupon', [CartController::class, 'removeCoupon'])->name('ca
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/orders/{order:order_number}', [CheckoutController::class, 'confirmation'])->name('orders.confirmation');
+Route::get('/checkout/success/{order:order_number}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 Route::post('/stripe/webhook', [App\Http\Controller\StripeWEbhookController::class, 'handle'])
     ->name('strip.webhook')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrToken::class);
