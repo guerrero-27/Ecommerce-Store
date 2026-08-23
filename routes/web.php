@@ -32,6 +32,9 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/orders/{order:order_number}', [CheckoutController::class, 'confirmation'])->name('orders.confirmation');
 
+Route::post('/stripe/webhook', [App\Http\Controller\StripeWEbhookController::class, 'handle'])
+    ->name('strip.webhook')->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrToken::class);
+
 
 // ADMIN PANEL (protected)
 
