@@ -36,16 +36,16 @@ class Order extends Model
         return $this->user?->nmae ?? $this->guest_name ?? 'Guest';
     }
 
-    public function statusColor(): string
+    public function statusClasses(): string
     {
-        return match ($this->status){
-            'pending' => 'yellow',
-            'paid' => 'blue',
-            'processing' => 'indigo',
-            'shipped' => 'purple',
-            'delivered' => 'green',
-            'cancelled' => 'red',
-            default => 'gray',
+        return match ($this->status) {
+            'pending' => 'text-yellow-700 bg-yellow-50',
+            'paid' => 'text-blue-700 bg-blue-50',
+            'processing' => 'text-indigo-700 bg-indigo-50',
+            'shipped' => 'text-purple-700 bg-purple-50',
+            'delivered' => 'text-green-700 bg-green-50',
+            'cancelled' => 'text-red-700 bg-red-50',
+            default => 'text-gray-700 bg-gray-50',
         };
     }
 }
