@@ -42,7 +42,7 @@
                         <td class="px-4 py-3">{{ $order->customerName() }}</td>
                         <td class="px-4 py-3 font-mono">₱{{ number_format($order->total, 2) }}</td>
                         <td class="px-4 py-3">
-                            <span class="text-{{ $order->statusColor() }}-700 bg-{{ $order->statusColor() }}-50 text-xs font-mono uppercase px-2 py-1 rounded">
+                            <span class="{{ $order->statusClasses() }} text-xs font-mono uppercase px-2 py-1 rounded">
                                 {{ $order->status }}
                             </span>
                         </td>
