@@ -7,7 +7,7 @@
     <div class="flex items-center justify-between mb-6">
         <h1 class="font-display text-2xl font-semibold">Inventory</h1>
         <a href="{{ route('admin.inventory.index', ['low_stock' => 1]) }}"
-           class="text-sm {{ request('low_stock') ? 'text-accent' : 'text-ink/50 hover:text-accent' }}">
+            class="text-sm {{ request('low_stock') ? 'text-accent' : 'text-ink/50 hover:text-accent' }}">
             Show low stock only
         </a>
     </div>
@@ -37,9 +37,9 @@
                             <form action="{{ route('admin.inventory.adjust', $product) }}" method="POST" class="flex items-center gap-2">
                                 @csrf
                                 <input type="number" name="change" placeholder="±qty" required
-                                       class="w-24 border-hairline text-sm focus:border-accent focus:ring-accent">
+                                    class="w-24 border-hairline text-sm focus:border-accent focus:ring-accent">
                                 <input type="text" name="reason" placeholder="Reason (e.g. restock)" required
-                                       class="w-48 border-hairline text-sm focus:border-accent focus:ring-accent">
+                                    class="w-48 border-hairline text-sm focus:border-accent focus:ring-accent">
                                 <button class="border border-hairline px-3 py-1.5 text-xs hover:border-accent hover:text-accent">
                                     Apply
                                 </button>
