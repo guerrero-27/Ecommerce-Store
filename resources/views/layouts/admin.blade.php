@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="bg-paper text-ink font-body antialiased">
 
     <div class="flex min-h-screen">
@@ -60,6 +61,6 @@
         </main>
 
     </div>
-
+@stack('scripts')
 </body>
 </html>
