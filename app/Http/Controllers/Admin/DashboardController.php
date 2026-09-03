@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Model\OrderItem;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -17,10 +16,11 @@ class DashboardController extends Controller
         $paidStatuses = ['paid', 'processing', 'shipped', 'delivered'];
 
         $stats = [
-            'total_revenue' => Oder::whereIn('status', $paidStatuses)->sum('total'),
-            'total_orders' => Order::whereIn('status', $paidStatuses)->count(),
+            'total_revenue'   => Order::whereIn('status', $paidStatuses)->sum('total'),
+            'total_orders'    => Order::whereIn('status', $paidStatuses)->count(),
             'total_customers' => User::where('role', 'customer')->count(),
             'low_stock_count' => Product::where('stock', '<=', 5)->count(),
+            'total_products'  => Product::where('is_active', true)->count(),
         ];
 
         $revenueByDay = Order::whereIn('status', $paidStatuses)
@@ -30,11 +30,11 @@ class DashboardController extends Controller
             ->orderBy('date')
             ->get();
 
-        $revenueChart = collect(range(0, 29))->map(function ($i) use ($revenueByDay){
-            $date = now()->subDays(29 - $i)->format(Y-m-d);
+        $revenueChart = collect(range(0, 29))->map(function ($i) use ($revenueByDay) {
+            $date  = now()->subDays(29 - $i)->format('Y-m-d');
             $match = $revenueByDay->firstWhere('date', $date);
             return [
-                'date' => now()->subDays(29 - $i)->format('M d'),
+                'date'  => now()->subDays(29 - $i)->format('M d'),
                 'total' => $match ? (float) $match->total : 0,
             ];
         });
@@ -53,6 +53,13 @@ class DashboardController extends Controller
             ->groupBy('status')
             ->get();
 
-        return view('admin.dashboard', compact('stats', 'revenueChart', 'topProducts', 'statusBreakdown'));
+        $recentOrders = Order::with('user')
+            ->latest()
+            ->take(7)
+            ->get();
+
+        return view('admin.dashboard', compact(
+            'stats', 'revenueChart', 'topProducts', 'statusBreakdown', 'recentOrders'
+        ));
     }
 }
