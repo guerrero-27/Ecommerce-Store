@@ -22,7 +22,7 @@ class ProductSeeder extends Seeder
             ['name' => 'Ceramic Mug Set', 'price' => 799, 'compare_price' => 999, 'stock' => 10],
             ['name' => 'Canvas Tote Bag', 'price' => 450, 'stock' => 60],
             ['name' => 'Facial cleanser', 'price' => 350, 'stock' => 100],
-            ['name' => 'Yoga Mat', 'price' => 899 => 'compare_price' => 1199, 'stock' => 20],
+            ['name' => 'Yoga Mat', 'price' => 899, 'compare_price' => 1199, 'stock' => 20],
             ['name' => 'Bluetooth Speaker', 'price' => 1899, 'stock' => 15],
             ['name' => 'Scented Candle', 'price' => 299, 'stock' => 80],
         ];
@@ -39,7 +39,7 @@ class ProductSeeder extends Seeder
                 'sku' => 'SKU-' . str_pad($i + 1, 4, '0', STR_PAD_LEFT),
                 'is_active' =>true,
                 'is_featured' => $i < 4,
-            ])
+            ]);
         }
     }
 }

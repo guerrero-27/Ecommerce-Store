@@ -53,7 +53,7 @@ class Product extends Model
         return $this->compare_price && $this->compare_price > $this->price;
     }
 
-    public function diiscoutPercentage(): ?int
+    public function discountPercentage(): ?int
     {
         if (!$this->onSale()){
             return null;
