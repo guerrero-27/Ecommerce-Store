@@ -10,15 +10,21 @@ class ProductController extends Controller
     public function home()
     {
         $featured = Product::with('category')
-        ->where('is_active', true)
-        ->where('is_featured', true)
-        ->latest()
-        ->take(6)
-        ->get();
+            ->where('is_active', true)
+            ->where('is_featured', true)
+            ->latest()
+            ->take(8)
+            ->get();
+
+        $latest = Product::with('category')
+            ->where('is_active', true)
+            ->latest()
+            ->take(8)
+            ->get();
 
         $categories = Category::where('is_active', true)->take(6)->get();
 
-        return view('storefront.home', compact('featured', 'categories'));
+        return view('storefront.home', compact('featured', 'latest', 'categories'));
     }
 
     public function index(Request $request)

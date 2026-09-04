@@ -64,10 +64,44 @@
         @yield('content')
     </main>
 
-    <footer class="border-t border-hairline mt-24">
-        <div class="max-w-7xl mx-auto px-6 py-10 text-sm text-ink/60 flex justify-between">
-            <span>&copy; {{ date('Y') }} Store. All rights reserved.</span>
-            <span class="font-mono">Handled with care.</span>
+    <footer class="bg-gray-900 text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+                <div class="col-span-2 md:col-span-1">
+                    <a href="{{ route('home') }}" class="text-white font-bold text-xl">{{ config('app.name') }}<span class="text-yellow-400">.</span></a>
+                    <p class="mt-3 text-sm leading-relaxed">Your one-stop shop for quality products at great prices.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-3">Shop</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{{ route('products.index') }}" class="hover:text-yellow-400 transition">All Products</a></li>
+                        @foreach($categories->take(3) as $cat)
+                        <li><a href="{{ route('categories.show', $cat->slug) }}" class="hover:text-yellow-400 transition">{{ $cat->name }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-3">Account</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="{{ route('login') }}" class="hover:text-yellow-400 transition">Login</a></li>
+                        <li><a href="{{ route('register') }}" class="hover:text-yellow-400 transition">Register</a></li>
+                        <li><a href="{{ route('cart.index') }}" class="hover:text-yellow-400 transition">My Cart</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-3">Help</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><span class="hover:text-yellow-400 transition cursor-pointer">FAQ</span></li>
+                        <li><span class="hover:text-yellow-400 transition cursor-pointer">Shipping Policy</span></li>
+                        <li><span class="hover:text-yellow-400 transition cursor-pointer">Returns</span></li>
+                        <li><span class="hover:text-yellow-400 transition cursor-pointer">Contact Us</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs">
+                <span>&copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.</span>
+                <span>Made with ❤️ in the Philippines</span>
+            </div>
         </div>
     </footer>
 
