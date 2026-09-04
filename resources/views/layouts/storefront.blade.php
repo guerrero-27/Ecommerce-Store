@@ -36,7 +36,15 @@
                     @endif
                 </a>
                 @auth
-                    <a href="{{ route('account.orders') }}" class="text-sm hover:text-accent">Account</a>
+                    @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" class="text-sm hover:text-accent">Dashboard</a>
+                    @else
+                        <a href="{{ route('home') }}" class="text-sm hover:text-accent">Account</a>
+                    @endif
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="text-sm text-ink/60 hover:text-accent transition">Log out</button>
+                    </form>
                 @else
                     <a href="{{ route('login') }}" class="text-sm hover:text-accent">Log in</a>
                 @endauth
