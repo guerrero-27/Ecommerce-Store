@@ -8,7 +8,7 @@ class Order extends Model
 {
     protected $fillable = [
         'user_id', 'order_number', 'guest_name', 'guest_email',
-        'status', 'subtotal', 'discount', 'total', 'cuopon_id', 'shipping_address',
+        'status', 'subtotal', 'discount', 'total', 'coupon_id', 'shipping_address', 'stripe_session_id',
     ];
 
     public function user()
@@ -33,7 +33,7 @@ class Order extends Model
 
     public function customerName(): string
     {
-        return $this->user?->nmae ?? $this->guest_name ?? 'Guest';
+        return $this->user?->name ?? $this->guest_name ?? 'Guest';
     }
 
     public function statusClasses(): string

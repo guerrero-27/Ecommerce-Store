@@ -50,7 +50,34 @@
                 @endforeach
             </div>
 
-            <div class="flex justify-between items-center mt-8">
+            {{-- Coupon --}}
+            <div class="mt-8 border border-hairline p-4">
+                @if(session()->has('coupon_id') && ($appliedCoupon = \App\Models\Coupon::find(session('coupon_id'))))
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="font-mono text-sm text-accent font-semibold">{{ $appliedCoupon->code }}</span>
+                            <span class="text-xs text-ink/50 ml-2">applied</span>
+                        </div>
+                        <form action="{{ route('cart.coupon.remove') }}" method="POST">
+                            @csrf @method('DELETE')
+                            <button class="text-xs text-ink/40 hover:text-red-600">Remove</button>
+                        </form>
+                    </div>
+                @else
+                    <form action="{{ route('cart.coupon.apply') }}" method="POST" class="flex gap-2">
+                        @csrf
+                        <input type="text" name="code" placeholder="Coupon code"
+                               value="{{ old('code') }}"
+                               class="flex-1 border-hairline text-sm focus:border-accent focus:ring-accent">
+                        <button class="border border-hairline px-4 text-sm hover:border-accent hover:text-accent transition">Apply</button>
+                    </form>
+                    @error('code')
+                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                @endif
+            </div>
+
+            <div class="flex justify-between items-center mt-6">
                 <a href="{{ route('products.index') }}" class="text-sm text-ink/50 hover:text-accent">&larr; Continue shopping</a>
 
                 <div class="text-right">

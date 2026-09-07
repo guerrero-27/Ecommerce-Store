@@ -39,7 +39,7 @@
                     @if(auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}" class="text-sm hover:text-accent">Dashboard</a>
                     @else
-                        <a href="{{ route('home') }}" class="text-sm hover:text-accent">Account</a>
+                        <a href="{{ route('orders.index') }}" class="text-sm hover:text-accent">My Orders</a>
                     @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -86,6 +86,9 @@
                         <li><a href="{{ route('login') }}" class="hover:text-yellow-400 transition">Login</a></li>
                         <li><a href="{{ route('register') }}" class="hover:text-yellow-400 transition">Register</a></li>
                         <li><a href="{{ route('cart.index') }}" class="hover:text-yellow-400 transition">My Cart</a></li>
+                        @auth
+                        <li><a href="{{ route('orders.index') }}" class="hover:text-yellow-400 transition">My Orders</a></li>
+                        @endauth
                     </ul>
                 </div>
                 <div>

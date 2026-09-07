@@ -36,7 +36,7 @@ class Coupon extends Model
         }
 
         if ($this->min_order_amount && $orderTotal < $this->min_order_amount){
-            return flase;
+            return false;
         }
 
         return true;
