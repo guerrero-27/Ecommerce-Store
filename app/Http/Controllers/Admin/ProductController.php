@@ -16,8 +16,23 @@ class ProductController extends Controller
         $query = Product::with('category');
 
         if ($request->filled('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('sku', 'like', '%' . $request->search . '%');
+            });
         }
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        match ($request->status) {
+            'active'       => $query->where('is_active', true),
+            'hidden'       => $query->where('is_active', false),
+            'low_stock'    => $query->where('stock', '>', 0)->where('stock', '<=', 5),
+            'out_of_stock' => $query->where('stock', 0),
+            default        => null,
+        };
 
         $products = $query->latest()->paginate(15)->withQueryString();
 
