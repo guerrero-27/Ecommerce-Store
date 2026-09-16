@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Order::with('user');
+        $query = Order::with('user')->withCount('items');
 
         if ($request->filled('status')) {
             $query->where('status', $request->status);
