@@ -66,12 +66,12 @@
                             <button onclick="openEdit({{ $category->id }}, '{{ addslashes($category->name) }}', '{{ addslashes($category->description ?? '') }}', {{ $category->is_active ? 'true' : 'false' }})"
                                     class="text-xs font-medium text-gray-500 hover:text-gray-900 transition">Edit</button>
                             <form action="{{ route('admin.categories.destroy', $category) }}" method="POST"
-                                  onsubmit="return confirm('Delete \'{{ addslashes($category->name) }}\'?')">
+                                onsubmit="return confirm('Delete \'{{ addslashes($category->name) }}\'?')">
                                 @csrf @method('DELETE')
                                 <button class="text-xs font-medium text-red-400 hover:text-red-600 transition">Delete</button>
                             </form>
                             <a href="{{ route('categories.show', $category->slug) }}" target="_blank"
-                               class="text-gray-300 hover:text-gray-600 transition" title="View on store">
+                            class="text-gray-300 hover:text-gray-600 transition" title="View on store">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                 </svg>

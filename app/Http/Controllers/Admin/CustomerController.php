@@ -26,7 +26,7 @@ class CustomerController extends Controller
     {
         abort_unless($user->role === 'customer', 404);
 
-        $orders = $user->orders()->latest()->get();
+        $orders = $user->orders()->with('items')->latest()->get();
 
         return view('admin.customers.show', compact('user', 'orders'));
     }
