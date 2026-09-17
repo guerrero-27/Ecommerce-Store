@@ -32,7 +32,23 @@ class CategoryController extends Controller
         Category::create($validated);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category created.');
+    }
 
+    public function update(Request $request, Category $category)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'boolean',
+        ]);
+
+        if ($request->name !== $category->name) {
+            $validated['slug'] = Str::slug($request->name);
+        }
+
+        $category->update($validated);
+
+        return redirect()->route('admin.categories.index')->with('success', "'{$category->name}' updated.");
     }
 
     public function destroy(Category $category)
